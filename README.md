@@ -24,8 +24,15 @@ Paradigmas:
 ## Alunos
 |Matrícula | Aluno |
 | -- | -- |
-| xx/xxxxxx  |  xxxx xxxx xxxxx |
-| xx/xxxxxx  |  xxxx xxxx xxxxx |
+| 19/0041871  |  Abner Filipe Cunha Ribeiro   |
+| 19/0102390  |  André Macedo Rodrigues Alves |
+| 19/0012307  |  Eduardo Afonso Dutra Silva   |
+| 18/0018728  |  Igor Batista Paiva           |
+| 18/0033620  |  João Henrique Cunha Paulino  |
+| 16/0152615  |  João Pedro Elias de Moura    |
+| 18/0054554  |  Paulo Batista                |
+| 19/0019158  |  Rafael Leão Teixeira de Magalhães |
+| 19/0020903  |  Vitor Magalhães Lamego       |
 
 ## Sobre 
 Descreva o seu projeto em linhas gerais. 
