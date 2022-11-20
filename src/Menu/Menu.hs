@@ -2,6 +2,8 @@ module Menu.Menu(
     mainMenu 
     ) where 
 
+import Game.Game
+
 mainMenu :: IO ()
 mainMenu = do 
     putStrLn "========= Menu =========";
@@ -10,7 +12,7 @@ mainMenu = do
     input <- getLine
 
     if input == "1"
-        then putStrLn "Game started"
+        then startGame
     else if input == "2"
         then putStrLn "Program exited."
     else do
