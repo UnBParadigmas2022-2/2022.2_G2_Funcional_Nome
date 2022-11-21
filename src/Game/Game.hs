@@ -3,6 +3,7 @@ module Game.Game(
 ) where
 
 import Data.Aeson
+import Data.Text
 import qualified Data.ByteString.Lazy as Lazy
 
 import Question.Question
@@ -20,4 +21,4 @@ startGame = do
   
   case d of
     Left err -> putStrLn err
-    Right questions -> print questions
+    Right questions -> mapM_ renderQuestion questions
