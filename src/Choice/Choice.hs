@@ -5,13 +5,13 @@ module Choice.Choice(
 
 data Choice = Choice{
     value  :: String,
-    estate :: Bool,
+    state :: Bool,
     correct :: Bool
 } deriving Show
 
 generateChoice :: String -> Choice
 generateChoice n = do
-    Choice {value = n, estate=False, correct=False}
+    Choice {value = n, state=False, correct=False}
 
 generateChoices :: [String] -> [Choice] -> [Choice]
 generateChoices [] baralho = baralho
