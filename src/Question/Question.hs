@@ -1,14 +1,17 @@
 module Question.Question(
-    generateQuestion,
     Question
 ) where
+
+import Data.Aeson
+import Data.Text
+import GHC.Generics
 
 import Choice.Choice
 
 data Question = Question{
+    description :: Text,
     choices  :: [Choice]
-} deriving Show
+} deriving (Show, Generic)
 
-generateQuestion :: [Choice] -> Question
-generateQuestion n = do
-    Question {choices = n}
+instance FromJSON Question
+instance ToJSON Question

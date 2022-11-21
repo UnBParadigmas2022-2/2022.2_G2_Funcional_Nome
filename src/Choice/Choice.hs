@@ -1,18 +1,15 @@
 module Choice.Choice(
-    generateChoices,
     Choice
 ) where
 
+import Data.Aeson
+import Data.Text
+import GHC.Generics
+
 data Choice = Choice{
-    value  :: String,
-    state :: Bool,
+    description  :: Text,
     correct :: Bool
-} deriving Show
+} deriving (Show, Generic)
 
-generateChoice :: String -> Choice
-generateChoice n = do
-    Choice {value = n, state=False, correct=False}
-
-generateChoices :: [String] -> [Choice] -> [Choice]
-generateChoices [] baralho = baralho
-generateChoices (x : xs) baralho = generateChoices xs baralho++[generateChoice x]
+instance FromJSON Choice
+instance ToJSON Choice

@@ -1,12 +1,23 @@
 module Game.Game(
     startGame
-    ) where
+) where
 
-import Choice.Choice
+import Data.Aeson
+import qualified Data.ByteString.Lazy as Lazy
+
 import Question.Question
+
+jsonFile :: FilePath
+jsonFile = "data/questions.json"
+
+getJSON :: IO Lazy.ByteString
+getJSON = Lazy.readFile jsonFile
 
 startGame :: IO ()
 startGame = do
-    let choices = generateChoices ["choice2", "choice1"] []
-    let question = generateQuestion choices
-    print question
+  -- Get JSON data and decode it.
+  d <- fmap eitherDecode getJSON :: IO (Either String [Question])
+  
+  case d of
+    Left err -> putStrLn err
+    Right questions -> print questions
