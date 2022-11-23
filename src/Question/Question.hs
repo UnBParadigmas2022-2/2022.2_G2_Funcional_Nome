@@ -31,10 +31,10 @@ getCorrectAnswer [x] = 'd'
 getCorrectAnswer (h:t) | verifyCorrect h == True = getAlternative h
                        | otherwise = getCorrectAnswer t
 
-checkUserAnswer :: [Char] -> Char -> IO ()
+checkUserAnswer :: [Char] -> Char -> Int
 checkUserAnswer userAnswer questionAnswer 
-    | userAnswer !! 0 == questionAnswer = putStrLn "Acertou!"
-    | otherwise = putStrLn "Errou!"
+    | userAnswer !! 0 == questionAnswer = 1
+    | otherwise = 0
 
 getChoices :: Question -> [Choice]
 getChoices question = choices question
