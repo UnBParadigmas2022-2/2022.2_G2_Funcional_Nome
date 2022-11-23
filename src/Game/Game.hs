@@ -26,4 +26,7 @@ parseQuestions = do
 startGame :: IO ()
 startGame = do
   questions <- parseQuestions
-  renderQuestion (Prelude.head questions)
+  let actualQuestion = (Prelude.head questions)
+  renderQuestion actualQuestion
+  userAnswer <- getLine
+  checkUserAnswer userAnswer (getCorrectAnswer (getChoices actualQuestion))

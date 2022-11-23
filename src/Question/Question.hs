@@ -1,5 +1,8 @@
 module Question.Question(
     renderQuestion,
+    checkUserAnswer,
+    getCorrectAnswer,
+    getChoices,
     Question
 ) where
 
@@ -17,23 +20,20 @@ data Question = Question{
 instance FromJSON Question
 instance ToJSON Question
 
-renderQuestion :: Question -> IO ()
+renderQuestion :: Question -> IO [()]
 renderQuestion question = do
     putStrLn (description question) 
     mapM renderChoice (choices question)
-    verifyAnswer question
-    
-verifyAnswer :: Question -> IO ()
-verifyAnswer question = do
-    input <- getLine
-    let answer = getCorrectAnswer (choices question)
-  
-    if (input !! 0) == answer
-        then putStrLn "Acertou!"
-    else do
-        putStrLn "Errou!"
 
 getCorrectAnswer :: [Choice] -> Char
 getCorrectAnswer [x] = 'd'
 getCorrectAnswer (h:t) | verifyCorrect h == True = getAlternative h
                        | otherwise = getCorrectAnswer t
+
+checkUserAnswer :: [Char] -> Char -> IO ()
+checkUserAnswer userAnswer questionAnswer 
+    | userAnswer !! 0 == questionAnswer = putStrLn "Acertou!"
+    | otherwise = putStrLn "Errou!"
+
+getChoices :: Question -> [Choice]
+getChoices question = choices question
