@@ -1,3 +1,4 @@
+{-# LANGUAGE DeriveGeneric #-}
 module Question.Question(
     renderQuestion,
     checkUserAnswer,

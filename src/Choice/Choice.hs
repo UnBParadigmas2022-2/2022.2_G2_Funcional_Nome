@@ -1,3 +1,4 @@
+{-# LANGUAGE DeriveGeneric #-}
 module Choice.Choice(
     renderChoice,
     verifyCorrect,
