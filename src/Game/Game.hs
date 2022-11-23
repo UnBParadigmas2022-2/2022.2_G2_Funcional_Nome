@@ -14,11 +14,16 @@ jsonFile = "data/questions.json"
 getJSON :: IO Lazy.ByteString
 getJSON = Lazy.readFile jsonFile
 
-startGame :: IO ()
-startGame = do
-  -- Get JSON data and decode it.
+parseQuestions :: IO [Question]
+parseQuestions = do 
+    -- Get JSON data and decode it.
   d <- fmap eitherDecode getJSON :: IO (Either String [Question])
   
   case d of
-    Left err -> putStrLn err
-    Right questions -> mapM_ renderQuestion questions
+    Left err -> return []
+    Right questions -> return questions
+
+startGame :: IO ()
+startGame = do
+  questions <- parseQuestions
+  renderQuestion (Prelude.head questions)

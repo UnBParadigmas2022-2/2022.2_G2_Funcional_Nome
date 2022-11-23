@@ -7,8 +7,8 @@ import Game.Game
 mainMenu :: IO ()
 mainMenu = do 
     putStrLn "========= Menu =========";
-    putStrLn "1 - Start the game"
-    putStrLn "2 - Exit"
+    putStrLn "1 - Comecar novo jogo"
+    putStrLn "2 - Parar"
     input <- getLine
 
     if input == "1"

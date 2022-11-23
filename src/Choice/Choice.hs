@@ -1,5 +1,7 @@
 module Choice.Choice(
     renderChoice,
+    verifyCorrect,
+    getAlternative,
     Choice
 ) where
 
@@ -17,4 +19,10 @@ instance ToJSON Choice
 
 renderChoice :: Choice -> IO ()
 renderChoice choice = do
-    putStrLn (description choice) 
+    putStrLn (description choice)
+
+verifyCorrect :: Choice -> Bool
+verifyCorrect choice = (correct choice)
+
+getAlternative :: Choice -> Char
+getAlternative choice = (description choice !! 0)
