@@ -3,10 +3,11 @@ module Game.Game(
 ) where
 
 import Data.Aeson
-import Data.Text
 import qualified Data.ByteString.Lazy as Lazy
 
 import Question.Question
+import Score.Score
+import View.View
 
 jsonFile :: FilePath
 jsonFile = "data/questions.json"
@@ -15,10 +16,10 @@ getJSON :: IO Lazy.ByteString
 getJSON = Lazy.readFile jsonFile
 
 parseQuestions :: IO [Question]
-parseQuestions = do 
+parseQuestions = do
     -- Get JSON data and decode it.
   d <- fmap eitherDecode getJSON :: IO (Either String [Question])
-  
+
   case d of
     Left err -> return []
     Right questions -> return questions
@@ -26,19 +27,26 @@ parseQuestions = do
 startGame :: IO()
 startGame = do
   questions <- parseQuestions
-  gameLoop questions
+  gameLoop questions 0
 
-gameLoop :: [Question] -> IO()
-gameLoop questions = do
+gameLoop :: [Question] -> Float -> IO()
+gameLoop questions currentScore = do
+  showScoreMenu currentScore
   let actualQuestion = (Prelude.head questions)
   renderQuestion actualQuestion
   userAnswer <- getLine
+
   if ((checkUserAnswer userAnswer (getCorrectAnswer (getChoices actualQuestion))) == 0)
-    then putStrLn "Errou!"
+    then do { printLines 100
+            ; showLoserScreen
+            ; showFinalScore (updateScore 'l' currentScore)}
   else do
-    putStrLn "Acertou!"
-    putStrLn "Próxima questão"
+    showRightAnswerMessage
     if (Prelude.null (Prelude.tail questions) == True)
-      then putStrLn "Parabens! Acertou todas as questões"
+      then do { printLines 100
+              ; showWinnerScreen
+              ; showFinalScore (updateScore 'w' currentScore)}
     else do
-      gameLoop (Prelude.tail questions)
+      printLines 100
+      showNextQuestionMessage
+      gameLoop (Prelude.tail questions) (updateScore 'w' currentScore)
