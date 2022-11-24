@@ -23,10 +23,22 @@ parseQuestions = do
     Left err -> return []
     Right questions -> return questions
 
-startGame :: IO ()
+startGame :: IO()
 startGame = do
   questions <- parseQuestions
+  gameLoop questions
+
+gameLoop :: [Question] -> IO()
+gameLoop questions = do
   let actualQuestion = (Prelude.head questions)
   renderQuestion actualQuestion
   userAnswer <- getLine
-  checkUserAnswer userAnswer (getCorrectAnswer (getChoices actualQuestion))
+  if ((checkUserAnswer userAnswer (getCorrectAnswer (getChoices actualQuestion))) == 0)
+    then putStrLn "Errou!"
+  else do
+    putStrLn "Acertou!"
+    putStrLn "Próxima questão"
+    if (Prelude.null (Prelude.tail questions) == True)
+      then putStrLn "Parabens! Acertou todas as questões"
+    else do
+      gameLoop (Prelude.tail questions)
