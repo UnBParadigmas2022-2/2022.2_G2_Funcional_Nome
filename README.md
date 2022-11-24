@@ -1,25 +1,8 @@
-# RepositorioTemplate
-Esse repositório é para ser utilizado pelos grupos como um template inicial, da home page do Projeto.
-As seções do Template NÃO DEVEM SER OMITIDAS, sendo TODAS RELEVANTES.
-
-**!! *Atenção: Renomeie o seu repositório para (Ano.Semestre)_(Grupo)_(Paradigma)_(NomeDoProjeto)*. !!** 
-
-Paradigmas:
- - Funcional
- - Logico
- - SMA
-
-**!! *Não coloque os nomes dos alunos no título do repositório*. !!**
-
-**!! *Exemplo de título correto: 2022.2_G1_Logico_ProjetoRoteirosAereos*. !!**
- 
- (Apague esses comentários)
-
-# NomeDoProjeto
+# ShowDoMarcao
 
 **Disciplina**: FGA0210 - PARADIGMAS DE PROGRAMAÇÃO - T01 <br>
-**Nro do Grupo (de acordo com a Planilha de Divisão dos Grupos)**: XX<br>
-**Paradigma**: XXXXXXXXXX<br>
+**Nro do Grupo (de acordo com a Planilha de Divisão dos Grupos)**: 02<br>
+**Paradigma**: Funcional<br>
 
 ## Alunos
 |Matrícula | Aluno |
@@ -34,16 +17,34 @@ Paradigmas:
 | 19/0019158  |  Rafael Leão Teixeira de Magalhães |
 | 19/0020903  |  Vitor Magalhães Lamego       |
 
-## Sobre 
-Descreva o seu projeto em linhas gerais. 
-Use referências, links, que permitam conhecer um pouco mais sobre o projeto.
-Capriche nessa seção, pois ela é a primeira a ser lida pelos interessados no projeto.
+## Sobre
+
+Marcos é um jovem professor recém formado no curso de letras da Universidade de Brasília (UnB), com foco nas linguas: português e inglês.
+O jovem professor está extremamente animado, dado que seus alunos estão muito interessados em suas aulas, que vão da leitura de poemas 
+de Augusto dos Anjos (em litetratura) à diferenciação de adjundo adnominal e complemento nominal (em gramática). 
+
+Certo dia, quando andava pelos corredores da escola, um grupo de alunos se aproximou de Marcos. Os jovens, com brilho no olhar, começaram
+a conversar com o professor sobre a ultima live do [Casimiro](https://www.youtube.com/watch?v=_dWp3ZbP_DA&ab_channel=CortesdoCasimito%5BOFICIAL%5D),
+live esta que o streamer estava jogando a versão virtual do [Show do milhão](https://pt.wikipedia.org/wiki/Show_do_Milh%C3%A3o). Certamente aqueles
+alunos pediriam para Marcos implementar uma dinâmica semelhante ao jogo em uma de suas aulas, pensou o professor. Logo após este pensamento, um dos alunos
+diz: "Professor, o senhor bem que podia fazer um Show do milhão valendo a aprovação neste bimestre, né ?".
+
+Marcos ri e diz: "Tudo bem, eu posso pensar em uma dinâmica como esta valendo alguma nota que não seja superior a 25% do total do bimestre. A propósito, o jogo
+vai se chamar Show do Marcão!". Com esta ideia na cabeça e a necessidade de avaliar 5 turmas, cada uma com 35 alunos, o docente sabe que precisa de automatizar
+este jogo para tornar viável a execução deste método de avaliação. Diante desta situação, ele logo se lembrou dos seus tempos de faculdade, e que sempre ouvia falar
+dos excelentíssimos graduandos em Engenharia de Software da Faculdade do Gama(FGA). Ele pegou o seu celta 2009, que é o melhor carro que um professor consegue comprar
+com o seu salário, e foi ao câmpus gama.
+
+Chegando lá, ele conversa com  Milene, professora de PARADIGMAS DE PROGRAMAÇÃO. Com a progressão da conversa, ela diz para Marcos que esta ideia é muito interessante
+para que seus alunos criem um pequeno projeto em Haskell e que na semana subsequente (25/11/2022) seus alunos já entregariam uma versão inicial do jogo.
+
+Para mais informações leia as issues do repositório, que foram descritas pelo professor.
 
 ## Screenshots
 Adicione 2 ou mais screenshots do projeto em termos de interface e/ou funcionamento.
 
 ## Instalação 
-**Linguagens**: xxxxxx<br>
+**Linguagens**: Haskell<br>
 **Tecnologias**: xxxxxx<br>
 Descreva os pré-requisitos para rodar o seu projeto e os comandos necessários.
 Insira um manual ou um script para auxiliar ainda mais.
