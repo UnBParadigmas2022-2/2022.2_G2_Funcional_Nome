@@ -45,10 +45,20 @@ Adicione 2 ou mais screenshots do projeto em termos de interface e/ou funcioname
 
 ## Instalação 
 **Linguagens**: Haskell<br>
-**Tecnologias**: xxxxxx<br>
-Descreva os pré-requisitos para rodar o seu projeto e os comandos necessários.
-Insira um manual ou um script para auxiliar ainda mais.
-Gifs animados e outras ilustrações são bem-vindos!
+**Tecnologias**: Haskell, Docker, stack<br>
+
+O projeto usa a linguagem Haskell e como gerenciador de pacotes usa o software chamado stack. Nesta pasta do repositório existe um Dockerfile que auxiliará
+na instalação e execução do projeto.
+
+Caso não tenha instalado o docker na sua máquina basta seguir o tutorial da digital [ocean](https://www.digitalocean.com/community/tutorials/how-to-install-and-use-docker-on-ubuntu-20-04).
+Com esta ferramenta instalada e dentro desta pasta execute os seguintes comandos:
+
+```
+    $ docker build . -t haskellzitos
+    $ docker run -it haskellzitos:latest
+```
+
+Ao executar estes comandos deve abrir um terminal iterativo indicando o inicio do jogo.
 
 ## Uso 
 Explique como usar seu projeto.
