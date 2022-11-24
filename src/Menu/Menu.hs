@@ -1,15 +1,15 @@
-module Menu.Menu( 
-    mainMenu 
-    ) where 
+module Menu.Menu(
+    mainMenu
+    ) where
 
 import Game.Game
+import View.View
 
 mainMenu :: IO ()
-mainMenu = do 
-    putStrLn "========= Menu =========";
-    putStrLn "1 - Comecar novo jogo"
-    putStrLn "2 - Parar"
+mainMenu = do
+    showMainMenu
     input <- getLine
+    printLines 100
 
     if input == "1"
         then startGame
