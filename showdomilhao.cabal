@@ -25,6 +25,7 @@ source-repository head
 
 library
   exposed-modules:
+      ApiQuestions.ApiQuestions
       Choice.Choice
       Game.Game
       Lib
@@ -39,7 +40,9 @@ library
       aeson
     , base >=4.7 && <5
     , bytestring
+    , lens
     , text
+    , wreq >=0.5.3.3 && <0.6
   default-language: Haskell2010
 
 executable showdomilhao-exe
@@ -53,8 +56,10 @@ executable showdomilhao-exe
       aeson
     , base >=4.7 && <5
     , bytestring
+    , lens
     , showdomilhao
     , text
+    , wreq >=0.5.3.3 && <0.6
   default-language: Haskell2010
 
 test-suite showdomilhao-test
@@ -69,6 +74,8 @@ test-suite showdomilhao-test
       aeson
     , base >=4.7 && <5
     , bytestring
+    , lens
     , showdomilhao
     , text
+    , wreq >=0.5.3.3 && <0.6
   default-language: Haskell2010
