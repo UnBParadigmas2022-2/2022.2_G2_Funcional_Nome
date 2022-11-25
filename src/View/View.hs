@@ -67,8 +67,6 @@ printLines lines = do
     putStrLn ""
     printLines (lines - 1)
 
-
-
 showHelpMenu :: HelpOptions -> IO ()
 showHelpMenu helpOptions = do
     putStrLn "\n========= Available help options ========="

@@ -62,8 +62,8 @@ callHelpAction questions score helpOptions = do
     input <- getLine
     printLines 100
 
-    if input == "1"
-        then skipAction
+    if input == "1" && getNumSkips helpOptions > 0
+        then skipAction questions score helpOptions
     else if input == "2"
         then plateAction
     else if input == "3"
@@ -76,8 +76,20 @@ callHelpAction questions score helpOptions = do
         putStrLn "Choose one option."
         callHelpAction questions score helpOptions
 
--- skipAction :: [Question] -> Float -> IO ()
-skipAction = putStrLn "skipAction"
+skipAction :: [Question] -> Float -> HelpOptions -> IO ()
+skipAction questions score helpOptions = do
+    if getNumSkips helpOptions < 1
+        then do {
+            putStrLn "No skips available"
+            ; gameLoop questions score helpOptions
+        }
+    else do
+        let numSkips = getNumSkips helpOptions
+        let numPlates = getNumPlates helpOptions
+        let numStudents = getNumStudents helpOptions
+        let numCards = getNumCards helpOptions
+
+        gameLoop (Prelude.tail questions) score (createHelpOption (numSkips - 1) numPlates numStudents numCards)
 
 -- plateAction :: [Question] -> Float -> IO ()
 plateAction = putStrLn "plateAction"
