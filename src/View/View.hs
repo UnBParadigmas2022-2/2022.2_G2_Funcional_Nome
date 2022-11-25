@@ -6,7 +6,9 @@ module View.View(
     showWinnerScreen,
     showNextQuestionMessage,
     showRightAnswerMessage,
-    printLines
+    printLines,
+    showActionsMenu,
+    showHelpMenu
     ) where
 
 import Control.Monad
@@ -25,7 +27,18 @@ showScoreMenu currentScore = do
     when (currentScore > 0) (putStrLn ("Errar - RS " ++ show(updateScore 'l' currentScore) ++ "0"))
     when (currentScore > 0) (putStrLn ("Parar - RS " ++ show(updateScore 's' currentScore) ++ "0"))
     putStrLn ("Acertar - RS " ++ show(updateScore 'w' currentScore) ++ "0")
-    putStrLn "==========================";
+    putStrLn "==========================\n";
+
+showActionsMenu :: Int -> Int -> Int -> Int -> IO ()
+showActionsMenu numSkips numPlates numStudents numCards = do
+    putStrLn "\n========= Help ========="
+    putStrLn ("Skips: " ++ show(numSkips))
+    putStrLn ("Plates: " ++ show(numPlates))
+    putStrLn ("Students: " ++ show(numStudents))
+    putStrLn ("Cards: " ++ show(numCards))
+
+    putStrLn "\nTo use available help options type 'h'"
+    putStrLn "==========================\n"
 
 showFinalScore :: Float -> IO ()
 showFinalScore finalScore = do
@@ -52,3 +65,27 @@ printLines 0 = return()
 printLines lines = do
     putStrLn ""
     printLines (lines - 1)
+
+showHelpMenu :: Int -> Int -> Int -> Int -> IO ()
+showHelpMenu numSkips numPlates numStudents numCards = do
+    putStrLn "\n========= Available help options ========="
+
+    if numSkips > 0
+        then putStrLn ("1 - Skip")
+    else do return ()
+
+    if numPlates > 0
+        then putStrLn ("2 - Plates")
+    else do return ()
+
+    if numStudents > 0
+        then putStrLn ("3 - Students")
+    else do return ()
+
+    if numCards > 0
+        then putStrLn ("4 - Cards")
+    else do return ()
+
+    putStrLn ("5 - Go back")
+
+    putStrLn "==========================\n"
