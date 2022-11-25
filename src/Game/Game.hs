@@ -3,13 +3,14 @@ module Game.Game(
 ) where
 
 import Data.Aeson
-import Data.Text
 import qualified Data.ByteString.Lazy as Lazy
 import Network.Wreq
 import GHC.Generics
 import Control.Lens
 
 import Question.Question
+import Score.Score
+import View.View
 
 -- jsonFile :: FilePath
 -- jsonFile = "data/questions.json"
@@ -35,19 +36,26 @@ getQuestion = do
 startGame :: IO()
 startGame = do
   questions <- getQuestion
-  gameLoop questions
+  gameLoop questions 0
 
-gameLoop :: [Question] -> IO()
-gameLoop questions = do
+gameLoop :: [Question] -> Float -> IO()
+gameLoop questions currentScore = do
+  showScoreMenu currentScore
   let actualQuestion = (Prelude.head questions)
   renderQuestion actualQuestion
   userAnswer <- getLine
+
   if ((checkUserAnswer userAnswer (getCorrectAnswer actualQuestion)) == 0)
-    then putStrLn "Errou!"
+    then do { printLines 100
+            ; showLoserScreen
+            ; showFinalScore (updateScore 'l' currentScore)}
   else do
-    putStrLn "Acertou!"
-    putStrLn "Próxima questão"
+    showRightAnswerMessage
     if (Prelude.null (Prelude.tail questions) == True)
-      then putStrLn "Parabens! Acertou todas as questões"
+      then do { printLines 100
+              ; showWinnerScreen
+              ; showFinalScore (updateScore 'w' currentScore)}
     else do
-      gameLoop (Prelude.tail questions)
+      printLines 100
+      showNextQuestionMessage
+      gameLoop (Prelude.tail questions) (updateScore 'w' currentScore)
