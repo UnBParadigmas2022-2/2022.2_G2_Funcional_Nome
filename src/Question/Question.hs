@@ -14,7 +14,7 @@ data Question = Question{
     correctAnswer :: String,
     incorrectAnswers :: [String],
     question:: String,
-    difficulty :: String
+    -- difficulty :: String
 } deriving (Show, Generic)
 
 instance FromJSON Question
@@ -28,7 +28,7 @@ renderQuestion questionObj = do
 
 renderChoiceRecursive :: [String] -> IO()
 renderChoiceRecursive [x] = putStrLn ("D) " ++ x)
-renderChoiceRecursive (h:t) | length t == 3 = do 
+renderChoiceRecursive (h:t) | length t == 3 = do
                                 putStrLn ("A) " ++ h)
                                 renderChoiceRecursive t
                             | length t == 2 = do
@@ -39,17 +39,17 @@ renderChoiceRecursive (h:t) | length t == 3 = do
                                 renderChoiceRecursive t
 
 getCorrectAnswer :: Question -> Char
-getCorrectAnswer question 
+getCorrectAnswer question
     | seed == 0 = 'D'
     | seed == 1 = 'A'
     | seed == 2 = 'C'
     | seed == 3 = 'B'
-    where 
+    where
         seed = (length (correctAnswer question)) `mod` 4
 
 
 shuffleChoices :: [String] -> Int -> [String]
-shuffleChoices choices seed  
+shuffleChoices choices seed
     | seed == 0 = choices
     | seed == 1 = reverse choices
     | seed == 2 = (Prelude.tail choices) ++ [(Prelude.head choices)]
@@ -57,6 +57,6 @@ shuffleChoices choices seed
 
 
 checkUserAnswer :: [Char] -> Char -> Int
-checkUserAnswer userAnswer questionAnswer 
+checkUserAnswer userAnswer questionAnswer
     | userAnswer !! 0 == questionAnswer = 1
     | otherwise = 0
