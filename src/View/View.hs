@@ -15,37 +15,37 @@ import Score.Score
 showMainMenu :: IO ()
 showMainMenu = do
     putStrLn "========= Menu =========";
-    putStrLn "1 - Comecar novo jogo"
-    putStrLn "2 - Parar"
+    putStrLn "1 - Start new game"
+    putStrLn "2 - Exit"
     putStrLn "========================";
 
 showScoreMenu :: Float -> IO ()
 showScoreMenu currentScore = do
-    putStrLn "========= Premio =========";
-    when (currentScore > 0) (putStrLn ("Errar - RS " ++ show(updateScore 'l' currentScore) ++ "0"))
-    when (currentScore > 0) (putStrLn ("Parar - RS " ++ show(updateScore 's' currentScore) ++ "0"))
-    putStrLn ("Acertar - RS " ++ show(updateScore 'w' currentScore) ++ "0")
+    putStrLn "========= Prize =========";
+    when (currentScore > 0) (putStrLn ("Wrong Answer- $ " ++ show(updateScore 'l' currentScore) ++ "0"))
+    when (currentScore > 0) (putStrLn ("Stop - $ " ++ show(updateScore 's' currentScore) ++ "0"))
+    putStrLn ("Correct Answer - $ " ++ show(updateScore 'w' currentScore) ++ "0")
     putStrLn "==========================";
 
 showFinalScore :: Float -> IO ()
 showFinalScore finalScore = do
-    putStrLn ("Seu premio final foi de: RS " ++ show(finalScore) ++ "0")
+    putStrLn ("Your final score was: $ " ++ show(finalScore) ++ "0")
 
 showLoserScreen :: IO ()
 showLoserScreen = do
-    putStrLn "Infelizmente voce perdeu."
+    putStrLn "Unfortunately you lose."
 
 showWinnerScreen :: IO ()
 showWinnerScreen = do
-    putStrLn "Parabens! Acertou todas as questões"
+    putStrLn "Congratulations!! You got all questions right!!"
 
 showRightAnswerMessage :: IO ()
 showRightAnswerMessage = do
-    putStrLn "Acertou!"
+    putStrLn "You got it right!"
 
 showNextQuestionMessage :: IO ()
 showNextQuestionMessage = do
-    putStrLn "Próxima questão"
+    putStrLn "Next question."
 
 printLines :: Int -> IO ()
 printLines 0 = return()
