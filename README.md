@@ -51,11 +51,23 @@ O projeto usa a linguagem Haskell e como gerenciador de pacotes usa o software c
 na instalação e execução do projeto.
 
 Caso não tenha instalado o docker na sua máquina basta seguir o tutorial da digital [ocean](https://www.digitalocean.com/community/tutorials/how-to-install-and-use-docker-on-ubuntu-20-04).
+
+### Rodando o projeto com Docker
+
 Com esta ferramenta instalada e dentro desta pasta execute os seguintes comandos:
 
 ```
     $ docker build . -t haskellzitos
     $ docker run -it haskellzitos:latest
+```
+
+### Rodando o projeto com Stack
+
+Com o stack instalado e dentro desta pasta execute os seguintes comandos:
+
+```
+    $ stack build
+    $ stack exec showdomilhao-exe
 ```
 
 Ao executar estes comandos deve abrir um terminal iterativo indicando o inicio do jogo.
