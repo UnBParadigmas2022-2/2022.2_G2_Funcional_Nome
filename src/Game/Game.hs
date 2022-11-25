@@ -8,6 +8,7 @@ import qualified Data.ByteString.Lazy as Lazy
 import Question.Question
 import Score.Score
 import View.View
+import Help.Help
 
 jsonFile :: FilePath
 jsonFile = "data/questions.json"
@@ -27,18 +28,18 @@ parseQuestions = do
 startGame :: IO()
 startGame = do
     questions <- parseQuestions
-    gameLoop questions 0 3 1 1 1
+    gameLoop questions 0 (createHelpOption 3 1 1 1)
 
-gameLoop :: [Question] -> Float -> Int -> Int -> Int -> Int -> IO()
-gameLoop questions currentScore currentNumSkips currentNumPlates currentNumStudents currentNumCards = do
-    showActionsMenu currentNumSkips currentNumPlates currentNumStudents currentNumCards
+gameLoop :: [Question] -> Float -> HelpOptions -> IO()
+gameLoop questions currentScore helpOptions = do
+    showActionsMenu helpOptions
     showScoreMenu currentScore
     let actualQuestion = (Prelude.head questions)
     renderQuestion actualQuestion
     userAnswer <- getLine
 
     if userAnswer == "h"
-        then callHelpAction questions currentScore currentNumSkips currentNumPlates currentNumStudents currentNumCards
+        then callHelpAction questions currentScore helpOptions
     else do
         if ((checkUserAnswer userAnswer (getCorrectAnswer (getChoices actualQuestion))) == 0)
         then do { printLines 100
@@ -53,11 +54,11 @@ gameLoop questions currentScore currentNumSkips currentNumPlates currentNumStude
             else do
                 printLines 100
                 showNextQuestionMessage
-                gameLoop (Prelude.tail questions) (updateScore 'w' currentScore) currentNumSkips currentNumPlates currentNumStudents currentNumCards
+                gameLoop (Prelude.tail questions) (updateScore 'w' currentScore) helpOptions
 
-callHelpAction :: [Question] -> Float -> Int -> Int -> Int -> Int -> IO ()
-callHelpAction questions score numSkips numPlates numStudents numCards = do
-    showHelpMenu numSkips numPlates numStudents numCards
+callHelpAction :: [Question] -> Float -> HelpOptions -> IO ()
+callHelpAction questions score helpOptions = do
+    showHelpMenu helpOptions
     input <- getLine
     printLines 100
 
@@ -70,10 +71,10 @@ callHelpAction questions score numSkips numPlates numStudents numCards = do
     else if input == "4"
         then cardsAction
     else if input == "5"
-        then do goBackAction questions score numSkips numPlates numStudents numCards
+        then do goBackAction questions score helpOptions
     else do
         putStrLn "Choose one option."
-        callHelpAction questions score numSkips numPlates numStudents numCards
+        callHelpAction questions score helpOptions
 
 -- skipAction :: [Question] -> Float -> IO ()
 skipAction = putStrLn "skipAction"
@@ -87,8 +88,7 @@ studentAction = putStrLn "studentAction"
 -- cardsAction :: [Question] -> Float -> IO ()
 cardsAction = putStrLn "cardsAction"
 
-goBackAction :: [Question] -> Float -> Int -> Int -> Int -> Int -> IO ()
-goBackAction questions score numSkips numPlates numStudents numCards = do
+goBackAction :: [Question] -> Float -> HelpOptions -> IO ()
+goBackAction questions score helpOptions = do
     printLines 100
-    gameLoop questions score numSkips numPlates numStudents numCards
-
+    gameLoop questions score helpOptions

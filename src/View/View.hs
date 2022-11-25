@@ -13,6 +13,7 @@ module View.View(
 
 import Control.Monad
 import Score.Score
+import Help.Help
 
 showMainMenu :: IO ()
 showMainMenu = do
@@ -29,13 +30,13 @@ showScoreMenu currentScore = do
     putStrLn ("Acertar - RS " ++ show(updateScore 'w' currentScore) ++ "0")
     putStrLn "==========================\n";
 
-showActionsMenu :: Int -> Int -> Int -> Int -> IO ()
-showActionsMenu numSkips numPlates numStudents numCards = do
+showActionsMenu :: HelpOptions -> IO ()
+showActionsMenu helpOptions = do
     putStrLn "\n========= Help ========="
-    putStrLn ("Skips: " ++ show(numSkips))
-    putStrLn ("Plates: " ++ show(numPlates))
-    putStrLn ("Students: " ++ show(numStudents))
-    putStrLn ("Cards: " ++ show(numCards))
+    putStrLn ("Skips: " ++ show(getNumSkips helpOptions))
+    putStrLn ("Plates: " ++ show(getNumPlates helpOptions))
+    putStrLn ("Students: " ++ show(getNumStudents helpOptions))
+    putStrLn ("Cards: " ++ show(getNumCards helpOptions))
 
     putStrLn "\nTo use available help options type 'h'"
     putStrLn "==========================\n"
@@ -66,23 +67,25 @@ printLines lines = do
     putStrLn ""
     printLines (lines - 1)
 
-showHelpMenu :: Int -> Int -> Int -> Int -> IO ()
-showHelpMenu numSkips numPlates numStudents numCards = do
+
+
+showHelpMenu :: HelpOptions -> IO ()
+showHelpMenu helpOptions = do
     putStrLn "\n========= Available help options ========="
 
-    if numSkips > 0
+    if getNumSkips helpOptions > 0
         then putStrLn ("1 - Skip")
     else do return ()
 
-    if numPlates > 0
+    if getNumPlates helpOptions > 0
         then putStrLn ("2 - Plates")
     else do return ()
 
-    if numStudents > 0
+    if getNumStudents helpOptions > 0
         then putStrLn ("3 - Students")
     else do return ()
 
-    if numCards > 0
+    if getNumCards helpOptions > 0
         then putStrLn ("4 - Cards")
     else do return ()
 
