@@ -5,10 +5,13 @@ module Help.Help(
     getNumStudents,
     getNumCards,
     createHelpOption,
+    platesValuesAccuracy,
     HelpOptions
     ) where
 
 import GHC.Generics
+import System.Random
+import System.IO.Unsafe
 
 data HelpOptions = HelpOptions{
     numSkips :: Int,
@@ -31,3 +34,9 @@ getNumCards helpOptions = (numCards helpOptions)
 
 createHelpOption :: Int -> Int -> Int -> Int -> HelpOptions
 createHelpOption numSkips numPlates numStudents numCards = HelpOptions numSkips numPlates numStudents numCards
+
+randomPercentageChance :: Int -> Bool
+randomPercentageChance chanceRate = unsafePerformIO (getStdRandom (randomR (1, 100))) <= chanceRate
+
+platesValuesAccuracy :: [Bool]
+platesValuesAccuracy = [randomPercentageChance x | x <- [35, 45, 55, 59]]
