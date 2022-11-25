@@ -2,9 +2,6 @@ module Game.Game(
     startGame
 ) where
 
-import System.Random
-import System.IO.Unsafe
-
 import Data.Aeson
 import qualified Data.ByteString.Lazy as Lazy
 
@@ -13,6 +10,7 @@ import Choice.Choice
 import Score.Score
 import View.View
 import Help.Help
+import Random.Random
 
 jsonFile :: FilePath
 jsonFile = "data/questions.json"
@@ -104,7 +102,7 @@ getChoiceFromPlateAccuracy questions plateAccuracy
     | otherwise = getAlternative ((filter notCorrect choices) !! randomIdx)
     where
         choices = getChoices (Prelude.head questions)
-        randomIdx = unsafePerformIO (randomRIO (0, ((length choices) - 2)))
+        randomIdx = randomIntInRange 0 ((length choices) - 2)
 
 plateAction :: [Question] -> Float -> HelpOptions -> IO ()
 plateAction questions score helpOptions = do
