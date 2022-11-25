@@ -3,6 +3,7 @@ module Choice.Choice(
     renderChoice,
     verifyCorrect,
     getAlternative,
+    notCorrect,
     Choice
 ) where
 
@@ -24,6 +25,9 @@ renderChoice choice = do
 
 verifyCorrect :: Choice -> Bool
 verifyCorrect choice = (correct choice)
+
+notCorrect :: Choice -> Bool
+notCorrect choice = not (correct choice)
 
 getAlternative :: Choice -> Char
 getAlternative choice = (description choice !! 0)
