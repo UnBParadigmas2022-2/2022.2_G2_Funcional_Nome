@@ -31,6 +31,8 @@ library
       Lib
       Menu.Menu
       Question.Question
+      Score.Score
+      View.View
   other-modules:
       Paths_showdomilhao
   hs-source-dirs:
