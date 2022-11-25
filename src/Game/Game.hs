@@ -44,6 +44,10 @@ gameLoop questions currentScore helpOptions helpUsed = do
 
     if userAnswer == "h" && not helpUsed
         then callHelpAction questions currentScore helpOptions
+    else if userAnswer == "h" && helpUsed == True
+        then do { printLines 100
+                ; putStrLn "A help was already used in this question\n"
+                ; gameLoop questions currentScore helpOptions True}
     else do
         if ((checkUserAnswer userAnswer (getCorrectAnswer (getChoices actualQuestion))) == 0)
             then do { printLines 100

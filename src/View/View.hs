@@ -90,7 +90,7 @@ showHelpMenu helpOptions = do
 
     putStrLn ("5 - Go back")
 
-    putStrLn "==========================\n"
+    putStrLn "==========================================\n"
 
 showPlateResult :: [Char] -> Int -> IO ()
 showPlateResult [] _ = return ()
@@ -104,4 +104,4 @@ showPlatesResults platesChoices = do
 
     showPlateResult platesChoices 1
 
-    putStrLn "==========================\n"
+    putStrLn "==================================\n"
