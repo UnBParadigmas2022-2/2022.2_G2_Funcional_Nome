@@ -27,8 +27,8 @@ renderQuestion :: Question -> IO ()
 renderQuestion questionObj = do
     putStrLn (question questionObj)
     let allChoices = (incorrectAnswers questionObj) ++ [(correctAnswer questionObj)]
-    renderChoiceRecursive allChoices 
-    mapM_ putStrLn allChoices  
+    -- renderChoiceRecursive allChoices 
+    mapM_ putStrLn (shuffleChoices allChoices ((length (correctAnswer questionObj)) `mod` 4))  
 
 renderChoiceRecursive :: [String] -> IO()
 renderChoiceRecursive [x] = putStrLn ("D) " ++ x)
@@ -42,21 +42,18 @@ renderChoiceRecursive (h:t) | length t == 3 = do
                                 putStrLn ("C) " ++ h)
                                 renderChoiceRecursive t
 
--- getCorrectAnswer :: [Choice] -> Char
--- getCorrectAnswer [x] = 'd'
--- getCorrectAnswer (h:t) | verifyCorrect h == True = getAlternative h
---                        | otherwise = getCorrectAnswer t
 getCorrectAnswer :: Question -> String
 getCorrectAnswer question = correctAnswer question
 
--- checkUserAnswer :: [Char] -> Char -> Int
--- checkUserAnswer userAnswer questionAnswer 
---     | userAnswer !! 0 == questionAnswer = 1
---     | otherwise = 0
+shuffleChoices :: [String] -> Int -> [String]
+shuffleChoices choices seed  
+    | seed == 0 = choices
+    | seed == 1 = reverse choices
+    | seed == 2 = (Prelude.tail choices) ++ [(Prelude.head choices)]
+    | seed == 3 = reverse ((Prelude.tail choices) ++ [(Prelude.head choices)])
+
+
 checkUserAnswer :: String -> String -> Int
 checkUserAnswer userAnswer questionAnswer 
     | userAnswer == questionAnswer = 1
     | otherwise = 0
-
--- getChoices :: Question -> [Choice]
--- getChoices question = choices question
