@@ -7,6 +7,7 @@ module Help.Help(
     createHelpOption,
     platesValuesAccuracy,
     studentsValuesAccuracy,
+    cardsValues,
     HelpOptions
     ) where
 
@@ -40,3 +41,6 @@ platesValuesAccuracy = [randomPercentageChance x | x <- [35, 45, 55, 59]]
 
 studentsValuesAccuracy :: [Bool]
 studentsValuesAccuracy = [randomPercentageChance x | x <- [65, 75, 75]]
+
+cardsValues :: [Int]
+cardsValues = [x | x <- [0..3]]

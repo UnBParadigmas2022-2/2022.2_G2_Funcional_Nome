@@ -10,7 +10,9 @@ module View.View(
     showActionsMenu,
     showHelpMenu,
     showPlatesResults,
-    showStudentsResults
+    showStudentsResults,
+    showCardsMenu,
+    showCardsResults
     ) where
 
 import Control.Monad
@@ -120,3 +122,27 @@ showStudentsResults studentsChoices = do
     showStudentResult studentsChoices 1
 
     putStrLn "======================================\n"
+
+showCardsMenu :: IO ()
+showCardsMenu = do
+    putStrLn "========= Cards options =========";
+    putStrLn "1 - Card 1"
+    putStrLn "2 - Card 2"
+    putStrLn "3 - Card 3"
+    putStrLn "4 - Card 4"
+    putStrLn "Choose a card number"
+    putStrLn "=================================";
+
+showCardResult :: [Char] -> Int -> IO ()
+showCardResult [] _ = return ()
+showCardResult (head:tail) num = do
+    putStrLn ((show num) ++ " - " ++ (show head))
+    showCardResult tail (num + 1)
+
+showCardsResults :: [Char] -> IO ()
+showCardsResults removedChoices = do
+    putStrLn "\n========= Cards results ========="
+
+    showCardResult removedChoices 1
+
+    putStrLn "===================================\n"

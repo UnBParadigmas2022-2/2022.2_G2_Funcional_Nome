@@ -75,10 +75,10 @@ callHelpAction questions score helpOptions = do
         then skipAction questions score helpOptions
     else if input == "2" && getNumPlates helpOptions > 0
         then plateAction questions score helpOptions
-    else if input == "3"
+    else if input == "3" && getNumStudents helpOptions > 0
         then studentAction questions score helpOptions
-    else if input == "4"
-        then cardsAction
+    else if input == "4" && getNumCards helpOptions > 0
+        then cardsAction questions score helpOptions
     else if input == "5"
         then do goBackAction questions score helpOptions
     else do
@@ -154,8 +154,40 @@ studentAction questions score helpOptions = do
 
         gameLoop questions score (createHelpOption numSkips numPlates (numStudents - 1) numCards) True
 
--- cardsAction :: [Question] -> Float -> IO ()
-cardsAction = putStrLn "cardsAction"
+filterNWrongChoices :: Question -> Int -> [Char]
+filterNWrongChoices question n = do
+    let choices = take n (filter notCorrect (getChoices question))
+
+    map getAlternative choices
+
+cardsAction :: [Question] -> Float -> HelpOptions -> IO ()
+cardsAction questions score helpOptions = do
+    if getNumCards helpOptions < 1
+        then do {
+            putStrLn "Cards unavailable"
+            ; gameLoop questions score helpOptions False
+        }
+    else do
+        let cards = cardsValues
+
+        showCardsMenu
+
+        userAnswer <- getLine
+        let intAnswer = (read userAnswer) :: Int
+
+        if intAnswer < 1 || intAnswer > 4
+            then do { putStrLn "Invalid card"
+                    ; gameLoop questions score helpOptions False}
+        else do
+            let removedQuestions = cards !! (intAnswer - 1)
+
+            putStrLn ("\n" ++ (show removedQuestions) ++ " questions where eliminated\n")
+
+            if removedQuestions > 0
+                then showCardsResults (filterNWrongChoices (head questions) removedQuestions)
+            else return ()
+
+            gameLoop questions score helpOptions True
 
 goBackAction :: [Question] -> Float -> HelpOptions -> IO ()
 goBackAction questions score helpOptions = do
