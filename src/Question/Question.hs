@@ -7,10 +7,7 @@ module Question.Question(
 ) where
 
 import Data.Aeson
--- import Data.Text
 import GHC.Generics
-
--- import Choice.Choice
 
 data Question = Question{
     category :: String,
@@ -27,8 +24,7 @@ renderQuestion :: Question -> IO ()
 renderQuestion questionObj = do
     putStrLn (question questionObj)
     let allChoices = (incorrectAnswers questionObj) ++ [(correctAnswer questionObj)]
-    -- renderChoiceRecursive allChoices 
-    mapM_ putStrLn (shuffleChoices allChoices ((length (correctAnswer questionObj)) `mod` 4))  
+    renderChoiceRecursive (shuffleChoices allChoices ((length (correctAnswer questionObj)) `mod` 4))
 
 renderChoiceRecursive :: [String] -> IO()
 renderChoiceRecursive [x] = putStrLn ("D) " ++ x)
@@ -42,8 +38,15 @@ renderChoiceRecursive (h:t) | length t == 3 = do
                                 putStrLn ("C) " ++ h)
                                 renderChoiceRecursive t
 
-getCorrectAnswer :: Question -> String
-getCorrectAnswer question = correctAnswer question
+getCorrectAnswer :: Question -> Char
+getCorrectAnswer question 
+    | seed == 0 = 'D'
+    | seed == 1 = 'A'
+    | seed == 2 = 'C'
+    | seed == 3 = 'B'
+    where 
+        seed = (length (correctAnswer question)) `mod` 4
+
 
 shuffleChoices :: [String] -> Int -> [String]
 shuffleChoices choices seed  
@@ -53,7 +56,7 @@ shuffleChoices choices seed
     | seed == 3 = reverse ((Prelude.tail choices) ++ [(Prelude.head choices)])
 
 
-checkUserAnswer :: String -> String -> Int
+checkUserAnswer :: [Char] -> Char -> Int
 checkUserAnswer userAnswer questionAnswer 
-    | userAnswer == questionAnswer = 1
+    | userAnswer !! 0 == questionAnswer = 1
     | otherwise = 0

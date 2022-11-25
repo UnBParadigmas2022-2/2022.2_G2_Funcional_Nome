@@ -12,20 +12,6 @@ import Question.Question
 import Score.Score
 import View.View
 
--- jsonFile :: FilePath
--- jsonFile = "data/questions.json"
-
--- getJSON :: IO Lazy.ByteString
--- getJSON = Lazy.readFile jsonFile
-
--- parseQuestions :: IO [Question]
--- parseQuestions = do 
---     -- Get JSON data and decode it.
---   d <- fmap eitherDecode getJSON :: IO (Either String [Question])
-  
---   case d of
---     Left err -> return []
---     Right questions -> return questions
 
 getQuestion :: IO [Question]
 getQuestion = do
@@ -51,7 +37,7 @@ gameLoop questions currentScore = do
             ; showFinalScore (updateScore 'l' currentScore)}
   else do
     showRightAnswerMessage
-    if (Prelude.null (Prelude.tail questions) == True)
+    if (Prelude.null (Prelude.tail questions) == True || currentScore == 512000)
       then do { printLines 100
               ; showWinnerScreen
               ; showFinalScore (updateScore 'w' currentScore)}
