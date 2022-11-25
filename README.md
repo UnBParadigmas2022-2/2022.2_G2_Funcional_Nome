@@ -61,9 +61,16 @@ Com esta ferramenta instalada e dentro desta pasta execute os seguintes comandos
 Ao executar estes comandos deve abrir um terminal iterativo indicando o inicio do jogo.
 
 ## Uso 
-Explique como usar seu projeto.
-Procure ilustrar em passos, com apoio de telas do software, seja com base na interface gráfica, seja com base no terminal.
-Nessa seção, deve-se revelar de forma clara sobre o funcionamento do software.
+O projeto se baseia em uma interface de linha de comando, segue as regras impostas pelo show do milhão original. O player pode: responder a questão, então acertar a resposta, ganhar
+mais dinheiro/pontos e progredir para a próxima questão; ou errar a resposta e perder metade do que ganhou até o momento e o jogo termina; ademais o player também tem a opção de parar o jogo
+e conservar a quantia que recebeu até o momento. Além disto também existem movimentos especiais que o jogador pode fazer, como: 
+
+- **Pular a questão**, esta ação pode ser executada até 3 vezes. Ao pular uma questão o aumento de pontos não é executado, ou seja: se O player está em uma questão de 50 mil reais e pula ela, ele apenas receberá uma nova questão e o montante não será somado ao seu prêmio.
+- **Cartas**. O jogador pode escolher entre quatro cartas, que estão numeradas de 0 até 3, o número indica a quantidade de resposta erradas que serão retiradas da lista de respostas possíveis. Ex: se o jogador tirar uma carta com o número 2 então serão retiradas 2 questões que não correspondem à resposta certa, sobrando apenas 2 alternativas restantes.
+- **Universitários**. Três universitários responderão a questão, sendo que 2 deles tem 75% de chance de acertar e o outro 65%. Ex: A diz que a resposta certa é 1, B diz que a resposta certa é 1, C diz que a resposta certa é 3. Independente do fato de A e B concordarem isto não garante que a resposta certa é 1, e nem que a resposta certa é 3. Mas existe uma grande chance de que a resposta seja 1 ou 3, dadas as porcentagens citadas.
+- **Placas**.  Esta ação é semelhante a ajuda dos universitários, o que difere é o número de porcentagens e pessoas participantes. É como se 4 pessoas comuns fossem perguntadas, e não os especialistas. As acurácias dos quatro participantes são: 35%, 45%, 55% e 59%.
+
+Todas as ações, que não **Pular a questão**, só podem ser executadas uma única vez durante o jogo. 
 
 ## Vídeo
 Adicione 1 ou mais vídeos com a execução do projeto.
