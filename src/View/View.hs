@@ -8,7 +8,8 @@ module View.View(
     showRightAnswerMessage,
     printLines,
     showActionsMenu,
-    showHelpMenu
+    showHelpMenu,
+    showPlatesResults
     ) where
 
 import Control.Monad
@@ -88,5 +89,19 @@ showHelpMenu helpOptions = do
     else do return ()
 
     putStrLn ("5 - Go back")
+
+    putStrLn "==========================\n"
+
+showPlateResult :: [Char] -> Int -> IO ()
+showPlateResult [] _ = return ()
+showPlateResult (head:tail) num = do
+    putStrLn ((show num) ++ " - " ++ (show head))
+    showPlateResult tail (num + 1)
+
+showPlatesResults :: [Char] -> IO ()
+showPlatesResults platesChoices = do
+    putStrLn "\n========= Plates results ========="
+
+    showPlateResult platesChoices 1
 
     putStrLn "==========================\n"
