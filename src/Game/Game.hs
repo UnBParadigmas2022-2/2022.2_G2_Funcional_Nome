@@ -76,7 +76,7 @@ callHelpAction questions score helpOptions = do
     else if input == "2" && getNumPlates helpOptions > 0
         then plateAction questions score helpOptions
     else if input == "3"
-        then studentAction
+        then studentAction questions score helpOptions
     else if input == "4"
         then cardsAction
     else if input == "5"
@@ -127,8 +127,32 @@ plateAction questions score helpOptions = do
 
         gameLoop questions score (createHelpOption numSkips (numPlates - 1) numStudents numCards) True
 
--- studentAction :: [Question] -> Float -> IO ()
-studentAction = putStrLn "studentAction"
+getChoiceFromStudentAccuracy :: [Question] -> Bool -> Char
+getChoiceFromStudentAccuracy questions plateAccuracy
+    | plateAccuracy == True = getCorrectAnswer choices
+    | otherwise = getAlternative ((filter notCorrect choices) !! randomIdx)
+    where
+        choices = getChoices (Prelude.head questions)
+        randomIdx = randomIntInRange 0 ((length choices) - 2)
+
+studentAction :: [Question] -> Float -> HelpOptions -> IO ()
+studentAction questions score helpOptions = do
+    if getNumStudents helpOptions < 1
+        then do {
+            putStrLn "Students unavailable"
+            ; gameLoop questions score helpOptions False
+        }
+    else do
+        let numSkips = getNumSkips helpOptions
+        let numPlates = getNumPlates helpOptions
+        let numStudents = getNumStudents helpOptions
+        let numCards = getNumCards helpOptions
+
+        let studentsChoices = map (\x -> getChoiceFromStudentAccuracy questions x) studentsValuesAccuracy
+
+        showStudentsResults studentsChoices
+
+        gameLoop questions score (createHelpOption numSkips numPlates (numStudents - 1) numCards) True
 
 -- cardsAction :: [Question] -> Float -> IO ()
 cardsAction = putStrLn "cardsAction"

@@ -9,7 +9,8 @@ module View.View(
     printLines,
     showActionsMenu,
     showHelpMenu,
-    showPlatesResults
+    showPlatesResults,
+    showStudentsResults
     ) where
 
 import Control.Monad
@@ -105,3 +106,17 @@ showPlatesResults platesChoices = do
     showPlateResult platesChoices 1
 
     putStrLn "==================================\n"
+
+showStudentResult :: [Char] -> Int -> IO ()
+showStudentResult [] _ = return ()
+showStudentResult (head:tail) num = do
+    putStrLn ((show num) ++ " - " ++ (show head))
+    showStudentResult tail (num + 1)
+
+showStudentsResults :: [Char] -> IO ()
+showStudentsResults studentsChoices = do
+    putStrLn "\n========= Students results ========="
+
+    showStudentResult studentsChoices 1
+
+    putStrLn "======================================\n"
