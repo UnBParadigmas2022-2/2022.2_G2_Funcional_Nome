@@ -4,29 +4,24 @@ module Game.Game(
 
 import Data.Aeson
 import qualified Data.ByteString.Lazy as Lazy
+import Network.Wreq
+import GHC.Generics
+import Control.Lens
 
 import Question.Question
 import Score.Score
 import View.View
 
-jsonFile :: FilePath
-jsonFile = "data/questions.json"
 
-getJSON :: IO Lazy.ByteString
-getJSON = Lazy.readFile jsonFile
+getQuestion :: IO [Question]
+getQuestion = do
+    response <- asJSON =<< get "https://the-trivia-api.com/api/questions?limit=15"
+    pure (response ^. responseBody)
 
-parseQuestions :: IO [Question]
-parseQuestions = do
-    -- Get JSON data and decode it.
-  d <- fmap eitherDecode getJSON :: IO (Either String [Question])
-
-  case d of
-    Left err -> return []
-    Right questions -> return questions
 
 startGame :: IO()
 startGame = do
-  questions <- parseQuestions
+  questions <- getQuestion
   gameLoop questions 0
 
 gameLoop :: [Question] -> Float -> IO()
@@ -36,13 +31,13 @@ gameLoop questions currentScore = do
   renderQuestion actualQuestion
   userAnswer <- getLine
 
-  if ((checkUserAnswer userAnswer (getCorrectAnswer (getChoices actualQuestion))) == 0)
+  if ((checkUserAnswer userAnswer (getCorrectAnswer actualQuestion)) == 0)
     then do { printLines 100
             ; showLoserScreen
             ; showFinalScore (updateScore 'l' currentScore)}
   else do
     showRightAnswerMessage
-    if (Prelude.null (Prelude.tail questions) == True)
+    if (Prelude.null (Prelude.tail questions) == True || currentScore == 512000)
       then do { printLines 100
               ; showWinnerScreen
               ; showFinalScore (updateScore 'w' currentScore)}
