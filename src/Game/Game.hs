@@ -9,7 +9,6 @@ import GHC.Generics
 import Control.Lens
 
 import Question.Question
-import Choice.Choice
 import Score.Score
 import View.View
 import Help.Help
