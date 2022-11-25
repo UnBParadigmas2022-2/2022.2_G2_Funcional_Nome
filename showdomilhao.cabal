@@ -27,9 +27,11 @@ library
   exposed-modules:
       Choice.Choice
       Game.Game
+      Help.Help
       Lib
       Menu.Menu
       Question.Question
+      Random.Random
       Score.Score
       View.View
   other-modules:
@@ -41,6 +43,7 @@ library
       aeson
     , base >=4.7 && <5
     , bytestring
+    , random
     , text
   default-language: Haskell2010
 
@@ -55,6 +58,7 @@ executable showdomilhao-exe
       aeson
     , base >=4.7 && <5
     , bytestring
+    , random
     , showdomilhao
     , text
   default-language: Haskell2010
@@ -71,6 +75,7 @@ test-suite showdomilhao-test
       aeson
     , base >=4.7 && <5
     , bytestring
+    , random
     , showdomilhao
     , text
   default-language: Haskell2010
