@@ -32,7 +32,7 @@ showScoreMenu currentScore = do
     when (currentScore > 0) (putStrLn ("Wrong Answer- $ " ++ show(updateScore 'l' currentScore) ++ "0"))
     when (currentScore > 0) (putStrLn ("Stop - $ " ++ show(updateScore 's' currentScore) ++ "0"))
     putStrLn ("Correct Answer - $ " ++ show(updateScore 'w' currentScore) ++ "0")
-    putStrLn "==========================";
+    putStrLn "==========================\n";
 
 showActionsMenu :: HelpOptions -> IO ()
 showActionsMenu helpOptions = do
