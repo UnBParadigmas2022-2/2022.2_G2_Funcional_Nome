@@ -163,6 +163,10 @@ cardsAction questions score helpOptions = do
             ; gameLoop questions score helpOptions False
         }
     else do
+        let numSkips = getNumSkips helpOptions
+        let numPlates = getNumPlates helpOptions
+        let numStudents = getNumStudents helpOptions
+        let numCards = getNumCards helpOptions
         let cards = cardsValues
 
         showCardsMenu
@@ -182,7 +186,7 @@ cardsAction questions score helpOptions = do
                 then showCardsResults (filterNWrongChoices (head questions) removedQuestions)
             else return ()
 
-            gameLoop questions score helpOptions True
+            gameLoop questions score (createHelpOption numSkips numPlates numStudents (numCards - 1)) True
 
 goBackAction :: [Question] -> Float -> HelpOptions -> IO ()
 goBackAction questions score helpOptions = do
