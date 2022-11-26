@@ -24,6 +24,9 @@ dependencies:
 - aeson
 - text
 - bytestring
+- random
+- wreq ^>= 0.5.3.3
+- lens
 
 ghc-options:
 - -Wall
