@@ -41,7 +41,10 @@ para que seus alunos criem um pequeno projeto em Haskell e que na semana subsequ
 Para mais informações leia as issues do repositório, que foram descritas pelo professor.
 
 ## Screenshots
-Adicione 2 ou mais screenshots do projeto em termos de interface e/ou funcionamento.
+
+![g2_print_1](https://user-images.githubusercontent.com/51242776/204069947-4f7e0081-3a9e-4bc7-8cbc-3121138eb419.png)
+
+![g2_print_2](https://user-images.githubusercontent.com/51242776/204069946-468e0242-4ef7-4ef7-b444-2e1b5c3eb6eb.png)
 
 ## Instalação 
 **Linguagens**: Haskell<br>
