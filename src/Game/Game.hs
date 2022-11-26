@@ -22,7 +22,9 @@ getApiQuestions = do
 
 startGame :: IO()
 startGame = do
+    putStrLn "Loading questions from Trivia API..."
     questions <- getApiQuestions
+    printLines 100
     gameLoop (parseApiQuestions questions) 0 (createHelpOption 3 1 1 1) False
 
 gameLoop :: [Question] -> Float -> HelpOptions -> Bool -> IO()
