@@ -4,6 +4,9 @@ module Game.Game(
 
 import Data.Aeson
 import qualified Data.ByteString.Lazy as Lazy
+import Network.Wreq
+import GHC.Generics
+import Control.Lens
 
 import Question.Question
 import Choice.Choice
@@ -12,25 +15,15 @@ import View.View
 import Help.Help
 import Random.Random
 
-jsonFile :: FilePath
-jsonFile = "data/questions.json"
-
-getJSON :: IO Lazy.ByteString
-getJSON = Lazy.readFile jsonFile
-
-parseQuestions :: IO [Question]
-parseQuestions = do
-    -- Get JSON data and decode it.
-    d <- fmap eitherDecode getJSON :: IO (Either String [Question])
-
-    case d of
-        Left err -> return []
-        Right questions -> return questions
+getApiQuestions :: IO [ApiQuestion]
+getApiQuestions = do
+    response <- asJSON =<< get "https://the-trivia-api.com/api/questions?limit=15"
+    pure (response ^. responseBody)
 
 startGame :: IO()
 startGame = do
-    questions <- parseQuestions
-    gameLoop questions 0 (createHelpOption 3 1 1 1) False
+    questions <- getApiQuestions
+    gameLoop (parseApiQuestions questions) 0 (createHelpOption 3 1 1 1) False
 
 gameLoop :: [Question] -> Float -> HelpOptions -> Bool -> IO()
 gameLoop questions currentScore helpOptions helpUsed = do
@@ -181,7 +174,7 @@ cardsAction questions score helpOptions = do
         else do
             let removedQuestions = cards !! (intAnswer - 1)
 
-            putStrLn ("\n" ++ (show removedQuestions) ++ " questions where eliminated\n")
+            putStrLn ("\n" ++ (show removedQuestions) ++ " question(s) was(where) eliminated\n")
 
             if removedQuestions > 0
                 then showCardsResults (filterNWrongChoices (head questions) removedQuestions)

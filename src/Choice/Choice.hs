@@ -4,6 +4,7 @@ module Choice.Choice(
     verifyCorrect,
     getAlternative,
     notCorrect,
+    createChoice,
     Choice
 ) where
 
@@ -31,3 +32,6 @@ notCorrect choice = not (correct choice)
 
 getAlternative :: Choice -> Char
 getAlternative choice = (description choice !! 0)
+
+createChoice :: String -> Bool -> Choice
+createChoice description correct = Choice description correct
